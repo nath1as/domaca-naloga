@@ -10,20 +10,29 @@ const Card = styled.div`
   margin: 20px 0;
   padding: 25px;
   border: 2px solid black;
-  border-radius: 20px;
-  background: green;
   position: relative;
-  @media (max-width: 599px) {
+  border-radius: 20px;
+  background: linear-gradient(135deg, #61b2d8 10%, #f9a4f2 120%);
+
+  @media (max-width: 640px) {
+    width: 80%;
+    margin-right: 30px;
+  }
+  @media (max-width: 380px) {
+    width: 70%;
+  }
+  @media (max-width: 260px) {
+    width: 50%;
   }
 `
 const Title = styled.h1`
-  color: yellow;
+  color: #222;
   font-size: 1.2rem;
   text-transform: capitalize;
 `
 const Body = styled.p`
   align-self: flex-start;
-  color: pink;
+  color: white;
   display: inline;
   text-align: left;
   &::first-letter {
@@ -31,7 +40,7 @@ const Body = styled.p`
   }
 `
 const Id = styled.div`
-  color: pink;
+  color: #cc66ff;
   position: absolute;
   top: 10px;
   right: 15px;
@@ -40,7 +49,7 @@ const Post = ({ post }) => {
   return (
     <Card>
       <Id>{post.id}</Id>
-      <Title>{post.title}</Title>
+      <Title>{post.title ?? 'Loading ...'}</Title>
       <Body>{post.title}</Body>
     </Card>
   )

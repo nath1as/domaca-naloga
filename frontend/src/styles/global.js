@@ -6,6 +6,7 @@ const GlobalStyle = createGlobalStyle`
     height: 100vh;
     width: 100vw;
     overflow-x: hidden;
+    background: rgb(180 207 239); 
   }
   button {
   cursor: pointer;

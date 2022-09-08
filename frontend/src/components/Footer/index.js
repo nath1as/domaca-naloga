@@ -10,9 +10,10 @@ const Container = styled.footer`
 
   padding: 10px;
   padding-top: 20px;
-  background: black;
+  background: #222;
   width: 100%;
   overflow-y: hidden;
+  padding-bottom: 50px;
 `
 const Select = styled.div`
   display: flex;
@@ -24,7 +25,7 @@ const Select = styled.div`
 `
 const Button = styled.button`
   background: blue;
-  background: ${({ active }) => (active ? 'yellow' : 'gray')}};
+  background: ${({ active }) => (active ? '#f9a4f2' : 'white')}};
   font-size: 1rem;
   padding: 0 5px;
   margin: 0 3px;
@@ -34,8 +35,9 @@ const Number = styled.button`
   margin: 0px 5px;
 
   border-radius: 5px;
-  font-size: 1.1rem;
-  background: ${({ active }) => (active ? 'red' : 'gray')}};
+  font-size: 0.9rem;
+    font-weight: bold;
+  background: ${({ active }) => (active ? '#f9a4f2' : '#61b2d8')}};
 
   @media (max-width: 599px) {
     display: ${({ fixed }) => (fixed ? 'block' : 'none')}};
@@ -71,6 +73,8 @@ const Footer = ({ page, setPage, pagination, setPagination, totalPosts }) => {
     setDisplayPages([...Array(maxTotalPages).keys()])
     setPage(0)
   }, [maxTotalPages])
+
+  if (!totalPosts) return <Container />
 
   return (
     <Container>

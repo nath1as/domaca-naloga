@@ -17,11 +17,10 @@ const Layout = styled.div`
   max-width: 100vw;
 `
 const List = () => {
-  const [data, setData] = useState([])
+  const [data, setData] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9])
   const [page, setPage] = useState(0)
   const [pagination, setPagination] = useState(defaultPagination)
   const [posts, setPosts] = useState(defaultPages)
-  const [displayPages] = useState(defaultPages)
 
   useEffect(() => {
     getData(url).then((data) => {
@@ -34,18 +33,18 @@ const List = () => {
   }, [data, pagination, page])
 
   return (
-      <Layout>
-        {posts.map((post) => (
-          <Post post={post} key={post.id} />
-        ))}
-        <Footer
-          page={page}
-          setPage={setPage}
-          pagination={pagination}
-          setPagination={setPagination}
-          totalPosts={data.lenght ?? 100}
-        />
-      </Layout>
+    <Layout>
+      {posts.map((post) => (
+        <Post post={post} key={post.id} />
+      ))}
+      <Footer
+        page={page}
+        setPage={setPage}
+        pagination={pagination}
+        setPagination={setPagination}
+        totalPosts={data[0]?.title ? data.length : null}
+      />
+    </Layout>
   )
 }
 
