@@ -1,15 +1,27 @@
 import React, { useState, useEffect } from 'react'
+import styled from 'styled-components'
+import Footer from '../Footer'
+import Post from '../Post'
 import getData from '../../utils/getData.js'
-const url = 'https://jsonplaceholder.typicode.com/posts'
 
+const url = 'https://jsonplaceholder.typicode.com/posts'
+const defaultPagination = 10
+const defaultPages = [...Array(defaultPagination).keys()]
+
+const Layout = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  max-width: 100vw;
+`
 const List = () => {
   const [data, setData] = useState([])
-  const [posts, setPosts] = useState([])
-  const [pagination, setPagination] = useState(10)
   const [page, setPage] = useState(0)
-
-  const [maxTotalPages, setMaxTotalPages] = useState(pagination)
-  const [displayPages] = useState([...Array(maxTotalPages).keys()])
+  const [pagination, setPagination] = useState(defaultPagination)
+  const [posts, setPosts] = useState(defaultPages)
+  const [displayPages] = useState(defaultPages)
 
   useEffect(() => {
     getData(url).then((data) => {
@@ -19,23 +31,21 @@ const List = () => {
 
   useEffect(() => {
     setPosts(data.slice(page * pagination, page * pagination + pagination))
-  }, [data])
-
-  useEffect(() => {
-    setMaxTotalPages(data.length / pagination)
-  }, [data.length, pagination])
+  }, [data, pagination, page])
 
   return (
-    <div>
-      {posts.map((post) => (
-        <div>{post.id}</div>
-      ))}
-      <div>
-        {displayPages.map((pageNumber) => (
-          <span>{pageNumber + 1}</span>
+      <Layout>
+        {posts.map((post) => (
+          <Post post={post} key={post.id} />
         ))}
-      </div>
-    </div>
+        <Footer
+          page={page}
+          setPage={setPage}
+          pagination={pagination}
+          setPagination={setPagination}
+          totalPosts={data.lenght ?? 100}
+        />
+      </Layout>
   )
 }
 
